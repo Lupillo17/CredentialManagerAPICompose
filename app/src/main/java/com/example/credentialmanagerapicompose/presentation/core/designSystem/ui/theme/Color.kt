@@ -1,4 +1,4 @@
-package com.example.credentialmanagerapicompose.ui.theme
+package com.example.credentialmanagerapicompose.presentation.core.designSystem.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
