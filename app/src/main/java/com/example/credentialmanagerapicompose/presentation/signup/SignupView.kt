@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.credentialmanagerapicompose.R
+import com.example.credentialmanagerapicompose.domain.UIEventUser
 import com.example.credentialmanagerapicompose.domain.navigation.UIActions
 import com.example.credentialmanagerapicompose.presentation.core.navigation.graphs.Graph
 
@@ -48,14 +49,34 @@ fun SignupView(
         TextField(
             modifier = Modifier
                 .padding(top = 21.dp),
-            value = "",
-            onValueChange = {},
+            value = signupViewModel.userNameValue,
+            onValueChange = {
+                signupViewModel.setValues(
+                    UIEventUser.Username(username = it)
+                )
+            },
             label = {
-                Text(text = "")
+                Text(text = "Username")
             }
         )
+        if (signupViewModel.showPasswordField) {
+            TextField(
+                modifier = Modifier
+                    .padding(top = 21.dp),
+                value = signupViewModel.passwordValue,
+                onValueChange = {
+                    signupViewModel.setValues(
+                        UIEventUser.Password(password = it)
+                    )
+                },
+                label = {
+                    Text(text = "Password")
+                }
+            )
+        }
+        // TODO - Finish the ViewModel migration from XML with Profesor Jose and Big Mike
         Row(verticalAlignment = Alignment.CenterVertically) {
-            if (true) {
+            if (signupViewModel.showPasswordField) {
                 CircularProgressIndicator(modifier = Modifier.padding(top = 10.dp))
             }
             Text(text = stringResource(R.string.sv_cpi_text))
@@ -93,6 +114,7 @@ fun SignupView(
                 signupViewModel.doUIAction(
                     UIActions.NavigateTo(Graph.SIGN_UP)
                 )
+                signupViewModel.signUpWithPassword()
             },
             shape = RoundedCornerShape(0.dp)
         ) {

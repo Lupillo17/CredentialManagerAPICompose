@@ -1,9 +1,5 @@
 package com.example.credentialmanagerapicompose.presentation.signup
 
-import android.os.Handler
-import android.os.Looper
-import android.util.Base64
-import android.util.Log
 import android.view.View
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -11,12 +7,13 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
+import com.example.credentialmanagerapicompose.domain.UIEventUser
+import com.example.credentialmanagerapicompose.domain.User
 import com.example.credentialmanagerapicompose.domain.navigation.IUIActions
 import com.example.credentialmanagerapicompose.domain.navigation.UIActions
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.security.SecureRandom
 import javax.inject.Inject
 
 @HiltViewModel
@@ -24,12 +21,25 @@ class SignupViewModel @Inject constructor(
     private val uiActions: IUIActions
 ) : ViewModel() {
 
+    var userRequest: User by mutableStateOf(User())
+        private set
+
     private val _showProgressIndicator = mutableStateOf(false)
     val showProgressIndicator get() = _showProgressIndicator
 
     var _showProgressIndicator2: Boolean by mutableStateOf(false)
         private set
 
+    var userNameValue: String by mutableStateOf("")
+        private set
+    var usernameError: Boolean by mutableStateOf(false)
+        private set
+    var passwordValue: String by mutableStateOf("")
+        private set
+    var passwordError: Boolean by mutableStateOf(false)
+        private set
+    var showPasswordField: Boolean by mutableStateOf(false)
+        private set
 
     fun doUIAction(action: UIActions) {
         viewModelScope.launch(Dispatchers.Main) {
@@ -37,29 +47,41 @@ class SignupViewModel @Inject constructor(
         }
     }
 
-//    private fun signUpWithPassword(): View.OnClickListener {
-//        return View.OnClickListener {
-//            binding.password.visibility = View.VISIBLE
+    fun setValues(event: UIEventUser) {
+        userRequest = when (event) {
+            is UIEventUser.Username -> {
+                userRequest.copy(username = event.username)
+
+            }
+            is UIEventUser.Password -> {
+                userRequest.copy(password = event.password)
+            }
+        }
+    }
+
+    fun signUpWithPassword() {
+        if (validateFieldIsNullOrEmpty(userNameValue)) {
+//          binding.username.error = "User name required"
+            usernameError = true
+        } else if (validateFieldIsNullOrEmpty(passwordValue)) {
+//            binding.password.error = "Password required"
+            passwordError = true
+        } else {
+//            lifecycleScope.launch {
 //
-//            if (binding.username.text.isNullOrEmpty()) {
-//                binding.username.error = "User name required"
-//                binding.username.requestFocus()
-//            } else if (binding.password.text.isNullOrEmpty()) {
-//                binding.password.error = "Password required"
-//                binding.password.requestFocus()
-//            } else {
-//                lifecycleScope.launch {
+//                configureViews(View.VISIBLE, false)
 //
-//                    configureViews(View.VISIBLE, false)
+//                createPassword()
 //
-//                    createPassword()
+//                simulateServerDelayAndLogIn()
 //
-//                    simulateServerDelayAndLogIn()
-//
-//                }
 //            }
-//        }
-//    }
+        }
+    }
+
+    fun validateFieldIsNullOrEmpty(field: String): Boolean {
+        return field.isNullOrEmpty()
+    }
 //
 //    private fun simulateServerDelayAndLogIn() {
 //        Handler(Looper.getMainLooper()).postDelayed({
