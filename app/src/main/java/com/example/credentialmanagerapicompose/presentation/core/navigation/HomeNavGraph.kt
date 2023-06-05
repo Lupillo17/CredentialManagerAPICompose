@@ -10,7 +10,7 @@ import androidx.navigation.compose.composable
 import com.example.credentialmanagerapicompose.presentation.core.navigation.graphs.Graph
 import com.example.credentialmanagerapicompose.domain.navigation.INavigationProvider
 import com.example.credentialmanagerapicompose.domain.navigation.UIActions
-import com.example.credentialmanagerapicompose.presentation.home.MainView
+import com.example.credentialmanagerapicompose.presentation.home.HomeView
 import com.example.credentialmanagerapicompose.presentation.signin.SigninView
 
 @Composable
@@ -40,10 +40,13 @@ fun HomeNavGraph(
         startDestination = Graph.ROOT
     ) {
         composable(route = Graph.ROOT) {
-            MainView()
+            HomeView()
         }
         composable(route = Graph.SIGN_IN) {
             SigninView()
+        }
+        composable(route = Graph.SIGN_UP) {
+            SigninView() // TODO: sign up view
         }
     }
 }

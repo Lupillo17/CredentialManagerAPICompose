@@ -4,7 +4,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.credentialmanagerapicompose.R
-import com.example.credentialmanagerapicompose.domain.navigation.INavigationService
 import com.example.credentialmanagerapicompose.domain.navigation.IUIActions
 import com.example.credentialmanagerapicompose.domain.navigation.UIActions
 import com.example.credentialmanagerapicompose.data.local.DataProvider
@@ -15,13 +14,18 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(
+class HomeViewModel @Inject constructor(
 //    private val navigationService: INavigationService,
     private val stringProvider: StringProvider,
     private val uiAction: IUIActions,
 ) : ViewModel() {
+
     private val _signedInText = mutableStateOf("")
     val signedInText get() = _signedInText
+
+    init {
+        configureSignedInText()
+    }
 
     private fun configureSignedInText() {
         if (DataProvider.isSignedInThroughPasskeys()) {

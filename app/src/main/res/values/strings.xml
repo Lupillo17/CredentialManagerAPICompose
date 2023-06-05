@@ -3,4 +3,15 @@
     <string name="logged_in_through_passkeys">Logged in successfully through passkeys</string>
     <string name="logged_in_through_password">Logged in successfully through password</string>
     <string name="showing_toast">Showing toast</string>
+    <string name="sign_out_and_try_again">SIGN OUT AND TRY AGAIN</string>
+    <string name="title">Try passkeys demo</string>
+    <string name="btn_sign_up">Sign up</string>
+    <string name="btn_sign_in">Sign in</string>
+    <string name="sv_title">Create New Account</string>
+    <string name="sv_cpi_text">operation in progress…</string>
+    <string name="sv_passkey_hint">Sign in to your account easily and securely with a passkey. Note: Your biometric data is only stored on your devices and will never be shared with anyone.</string>
+    <string name="sv_btn_signup_passkey">Sign Up with passkey</string>
+    <string name="sv_signup_hint">Sign up in to your account with a password. Your password will be saved securely with your password provider.</string>
+    <string name="sv_or_hint">------------------------------      OR      ------------------------------</string>
+    <string name="sv_btn_signup_password">Sign up with a password instead</string>
 </resources>

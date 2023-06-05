@@ -10,6 +10,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -20,8 +21,8 @@ import com.example.credentialmanagerapicompose.domain.navigation.UIActions
 import com.example.credentialmanagerapicompose.presentation.core.navigation.graphs.Graph
 
 @Composable
-fun MainView(
-    viewModel: MainViewModel = hiltViewModel(),
+fun HomeView(
+    viewModel: HomeViewModel = hiltViewModel(),
 ) {
 
     Box(
@@ -31,18 +32,24 @@ fun MainView(
             modifier = Modifier.fillMaxWidth()
         ) {
             Text(
-                modifier = Modifier.padding(16.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
                 text = viewModel.signedInText.value,
                 textAlign = TextAlign.Center,
-                fontSize = 16.sp,
+                fontSize = 24.sp,
                 fontWeight = FontWeight.Bold
             )
             Button(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 20.dp),
-                onClick = { viewModel.doUIAction(UIActions.NavigateTo(Graph.SIGN_IN)) }) {
-                Text(text = "Sign out and try again")
+                onClick = {
+                    viewModel.doUIAction(
+                        UIActions.NavigateTo(Graph.SIGN_IN)
+                    )
+                }) {
+                Text(text = stringResource(R.string.sign_out_and_try_again))
             }
 
             val context = LocalContext.current
