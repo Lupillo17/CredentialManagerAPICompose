@@ -5,20 +5,35 @@ plugins {
     id 'com.google.dagger.hilt.android'
 }
 
+// Load keystore properties for our signing key
+// (see developer.android.com/studio/publish/app-signing)
+def keystorePropertiesFile = rootProject.file("keystore.properties")
+def keystoreProperties = new Properties()
+keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+
 android {
-    namespace 'com.example.credentialmanagerapicompose'
-    compileSdk 33
+    namespace 'com.google.credentialmanager.sample'
+    compileSdk 34
 
     defaultConfig {
-        applicationId "com.example.credentialmanagerapicompose"
+        applicationId "com.google.credentialmanager.sample"
         minSdk 24
-        targetSdk 33
+        targetSdk 34
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary true
+        }
+    }
+
+    signingConfigs {
+        config {
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+            storeFile file(keystoreProperties['storeFile'])
+            storePassword keystoreProperties['storePassword']
         }
     }
 
@@ -74,4 +89,9 @@ dependencies {
 
     // navigation
     implementation "androidx.navigation:navigation-compose:2.5.3"
+
+    implementation 'androidx.credentials:credentials:1.2.0-beta01'
+    implementation 'androidx.credentials:credentials-play-services-auth:1.2.0-beta01'
+
+    implementation "androidx.appcompat:appcompat:1.6.1"
 }

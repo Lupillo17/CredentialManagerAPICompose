@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">CredentialManagerAPICompose</string>
+    <string name="app_name">CredentialManagerSample</string>
     <string name="logged_in_through_passkeys">Logged in successfully through passkeys</string>
     <string name="logged_in_through_password">Logged in successfully through password</string>
     <string name="showing_toast">Showing toast</string>
@@ -14,4 +14,8 @@
     <string name="sv_signup_hint">Sign up in to your account with a password. Your password will be saved securely with your password provider.</string>
     <string name="sv_or_hint">------------------------------      OR      ------------------------------</string>
     <string name="sv_btn_signup_password">Sign up with a password instead</string>
+    <string name="user_name_error">User name required</string>
+    <string name="password_error">Password required</string>
+    <string name="password_hint">Password</string>
+    <string name="username_hint">Username</string>
 </resources>
